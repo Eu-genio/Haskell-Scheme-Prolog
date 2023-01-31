@@ -1,0 +1,114 @@
+NUIM CS424, Jan 2022 Exam
+
+Answer any four (4) of the five (5) questions.
+25 points each.
+
+Notes:
+
+    Taken using Moodle, but not a Moodle Quiz: it's a document, you
+    turn in your script. It can be typed, or hand written & scanned,
+    or a combination. Especially if you want to draw pictures but also
+    have text: feel free to type "See Drawing 2" and scan a page
+    labelled "Drawing 2". Given the subject matter, a single text file
+    with C-l (control L) page break characters between answers would
+    make sense, or even one text file per question.
+
+    Open book, meaning lecture notes & textbooks. But please don't
+    directly copy. And please don't look up questions on Quora or
+    whatever and copy the answer. It should be in your own code and
+    words, and you should understand what you send in.
+
+    Feel free to ask me questions (for clarification, etc) via Teams.
+    If the answer is of general interest I will post it to a the CS424
+    Team general chat, EXAM topic.
+
+    I've attempted to set this to allow uploading after the normal
+    deadline (which would be two hours plus a half hour for scanning
+    and uploading). This is to allow people who need accommodation (as
+    determined by the relevant university office) to turn in their
+    scripts without any extra hassle. The submissions do have a
+    timestamp, and late submissions should be either authorized or
+    explained.
+
+Q1: Scheme
+
+Define a Scheme function maj3-filter which takes three predicates
+and a list, and returns all elements of the list for which at least
+two of the three passed predicates are true.
+
+Example:
+
+    (maj3-filter positive? even? (λ (x) (= x 7))
+                 '(-2 -1 0 1 2 3 4 5 6 7 8 9 10))
+    => (2 4 6 7 8 10)
+
+Q2: λ Calculus
+
+Consider the following term in the pure lambda calculus term E:
+
+   (λ a . (λ b . b)) ((λ x . x x) (λ y . y y)) (λ z . d)
+
+(a) show that it is possible to have an infinite chain of reductions
+    starting with E.
+
+(b) reduce E to normal form, showing your work.
+
+(c) give two reasons why E cannot be well typed in the simply typed
+    lambda calculus.
+
+(d) show that when E is reduced to a normal form, that term *can* be
+    well typed in the simply typed lambda calculus..
+
+Q3: Haskell
+
+Define a Haskell function maj3filter which takes three predicates and
+a list and returns a list of those elements for which at least two of
+the predicates are true. Be sure to include a type signature!
+
+Example:
+
+    maj3filter (>0) even (==7) [-2..10]
+    => [2,4,6,7,8,10]
+
+Q4: Prolog
+
+Define a Prolog predicate mushed/3 which is true when given three
+lists the third of third of which is some interdigitation of the first
+two.
+
+Example:
+
+?- mushed(X,Y,[a,b,c]).
+
+X = [a,b,c]
+Y = [] ? ;
+
+X = [a,b]
+Y = [c] ? ;
+
+X = [a,c]
+Y = [b] ? ;
+
+X = [a]
+Y = [b,c] ? ;
+
+X = [b,c]
+Y = [a] ? ;
+
+X = [b]
+Y = [a,c] ? ;
+
+X = [c]
+Y = [a,b] ? ;
+
+X = []
+Y = [a,b,c] ? ;
+
+no
+
+Q5: Synthesis
+
+Why is it more difficult to reason about space complexity of Haskell
+code than Scheme code? Where does Prolog fall in this continuum, and
+why?
+

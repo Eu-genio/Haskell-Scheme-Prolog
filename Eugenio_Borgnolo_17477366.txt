@@ -1,0 +1,65 @@
+Q1 Scheme
+I used racket, if you copy and paste all should work with test case, and similarly did the same with the others
+#lang mzscheme
+;; Helper function which check whether any 2 or more than two functions returns true for the given element.
+(define (helper a b c x)
+(cond
+((and (a x) (b x)) #t)
+((and (b x) (c x)) #t)
+((and (c x) (a x)) #t)
+(else #f)))
+
+;; Main function
+(define (maj3-filter f1 f2 f3 lst)
+(cond
+((null? lst) '())     ;Will return null list if the list is empty
+((helper f1 f2 f3 (car lst)) (cons (car lst) (maj3-filter f1 f2 f3 (cdr lst))))    ;Checking if the function is true for first element of the list nad recursively calling the function for rest of the answer.
+(else (maj3-filter f1 f2 f3 (cdr lst))))) 
+
+;; Testing
+(maj3-filter even? positive? (lambda (x) (= x 7)) '(-2 -1 0 1 2 3 4 5 6 7 8 10))
+
+
+Q3 Haskell
+maj3filter :: (t -> Bool) -> (t -> Bool) -> (t -> Bool) -> [t] -> [t]
+maj3filter a b c ls = filter (\x -> helper a b c x ) ls
+
+-- this function returns true if two or more functions return true for the given element.
+helper :: (t -> Bool) -> (t -> Bool) -> (t -> Bool) -> t -> Bool
+helper a b c x
+    |a x && b x = True
+    |b x && c x = True
+    |a x && c x = True
+    |otherwise = False
+
+-- Testing
+main :: IO()
+main = do
+    print(maj3filter (>0) even (==7) [-2..10])
+
+Q4 Prolog
+mushed(X,Y,Z):- subsequenceGenerator(Z,X),identicalRemover(X,Z,Y).
+
+% Removes the elements of the list present in the first list.
+identicalRemover(_,[],[]).
+identicalRemover(X,[H|T],Z):- member(H,X),identicalRemover(X,T,Z). 
+identicalRemover(X,[H|T],[H|Z]):- not(member(H,X)),identicalRemover(X,T,Z).
+
+% Generates every possible subsequence of the given list.
+subsequenceGenerator(X,X).
+subsequenceGenerator(X,Final):- subsequence(X,Final).
+
+subsequence([_|T],Final):- subsequenceGenerator(T, Final).
+subsequence([H|T],[H|Final]):- subsequence(T,Final).
+
+
+Q5
+My way of possibly looking at this would be to see the fundamental differences between haskell and scheme first. Haskell is statically typed and is lazy by default and scheme is quite literally the opposite.
+The definition of space complexity is "the amount of memory space requried to solve an instance of a computational problem", in Haskells case this might initially seem that the memory required to solve a comp. problem might be small, due to Haskell’s readability and how pretty it is we may be tricked into thinking so.
+However, if looked at more closely, this does not seem to be true. I thought about it for a second, lazy evaluation allows for infinite infinite lists while not demanding an infinite amount of space, to do this in other languages e.g. java you would have to make a whole new variable to change the size of the list. However lazy evaluation doesn’t allow us to calculate the space complexity of these lists or the functions until its called, which causes issues.
+Scheme on the other hand is quite literally the opposite of this, where it evaluates the function/list/data and then calls it, my understanding may be completely wrong but i believe haskell and scheme are at completely opposite ends due to their fundamental differences. 
+As for how prolog fits into this? I am going to apply the same logic, prolog fundamentally is a logic programming language which does not compute a value, however they can answer "yes" or "no" and optionally bind input variables to values. 
+This to me in an abstract way, seems very similar to a higher level programming language eg java. 
+I would say prolog is more similar in terms of space complexity to scheme in this regard, it also shares its dynamic typeness with scheme. 
+
+However despite all of this, haskell due to its lazy evaluation, it is difficult to evaluate its space complexity. Since nothing is saved and the evaluation is only known until the value is needed. And scheme as mentioned before is the opposite of this, and since I deduced that prolog is more like scheme and other higher level programs, it would be closer to it in terms of space complexity.
